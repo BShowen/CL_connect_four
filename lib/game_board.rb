@@ -5,6 +5,7 @@ class GameBoard
     def initialize
         @board = Array.new(6) { Array.new(7) }
         initialize_each_sqaure
+        @display_board = []
     end
 
     def initialize_each_sqaure
@@ -15,16 +16,25 @@ class GameBoard
         end
     end
 
-    def display
-        display_board = []
-        for row in 0...(@board.length) do
-            display_board << []
-            for square in 0...(@board[row].length) do
-                display_board[row] << @board[row][square].game_piece
+    def convert_object_board_into_readable_board
+        @display_board.clear
+        # for row in 0...(@board.length) do
+        #     @display_board << []
+        #     for square in 0...(@board[row].length) do
+        #         @display_board[row] << @board[row][square].game_piece
+        #     end
+        # end
+        @display_board = Marshal.load(Marshal.dump(@board))
+        @display_board.each do |row|
+            row.map! do |square|
+                square.game_piece
             end
         end
+    end
 
-        display_board.each do |row|
+    def display
+        convert_object_board_into_readable_board
+        @display_board.each do |row|
             puts "| " + row.join(" | ") + " |"
         end
         puts "|---|---|---|---|---|---|---|"
@@ -55,7 +65,7 @@ class GameBoard
     end
 
     def column_full?(column)
-        column(column).all? do |square|
+        self.column(column).all? do |square|
             square.game_piece != " "
         end
     end
