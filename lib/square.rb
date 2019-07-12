@@ -1,9 +1,9 @@
 class Square
 
-    attr_accessor :symbol
+    attr_accessor :game_piece
 
     def initialize
-        @symbol = " "
+        @game_piece = " "
     end
 
 end 
