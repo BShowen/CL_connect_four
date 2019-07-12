@@ -1,15 +1,30 @@
-# require_relative "./square.rb"
+require_relative "./square.rb"
 
 class GameBoard
 
     def initialize
-        @board = Array.new(6) do
-            Array.new(7," ")
+        @board = Array.new(6) { Array.new(7) }
+        initialize_each_sqaure
+    end
+
+    def initialize_each_sqaure
+        @board.map! do |row|
+            row.map! do 
+                Square.new
+            end
         end
     end
 
     def display
-        @board.each do |row|
+        display_board = []
+        for row in 0...(@board.length) do
+            display_board << []
+            for square in 0...(@board[row].length) do
+                display_board[row] << @board[row][square].game_piece
+            end
+        end
+
+        display_board.each do |row|
             puts "| " + row.join(" | ") + " |"
         end
         puts "|---|---|---|---|---|---|---|"
@@ -31,8 +46,9 @@ class GameBoard
         return nil if column_full?(specified_column)
         
         for index in 0..6 do
-            if row(index)[specified_column] == " "
-                row(index)[specified_column] = character
+            if row(index)[specified_column].game_piece == " "
+                row(index)[specified_column].game_piece = character
+                return true
                 break   
             end
         end
@@ -40,7 +56,7 @@ class GameBoard
 
     def column_full?(column)
         column(column).all? do |square|
-            square != " "
+            square.game_piece != " "
         end
     end
 
