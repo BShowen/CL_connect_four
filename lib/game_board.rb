@@ -1,7 +1,9 @@
 require_relative "./square.rb"
+require_relative "./game_ref"
 
 class GameBoard
-
+    include GameRef
+    
     attr_accessor :cloned_board
 
     def initialize
@@ -30,18 +32,18 @@ class GameBoard
         col
     end
 
-    def drop_piece(specified_column, new_character)
-        return false if column_full?(specified_column)
+    def drop_piece(column_number, new_character)
+        return false if column_full?(column_number)
         
-        for index in 0..6 do
-            if get_row(index)[specified_column].game_piece == " "
-                get_row(index)[specified_column].game_piece = new_character
+        for row in 0..6 do
+            if get_row(row)[column_number].game_piece == " "
+                get_row(row)[column_number].game_piece = new_character
                 return true
                 break   
             end
         end
     end
-    
+
 
     private 
 
