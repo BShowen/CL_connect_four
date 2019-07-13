@@ -1,9 +1,13 @@
 class Square
 
-    attr_accessor :game_piece
+    attr_accessor :character
 
     def initialize
-        @game_piece = " "
+        @character = " "
+    end
+
+    def is_unassigned?
+        @character == " "
     end
 
 end 
