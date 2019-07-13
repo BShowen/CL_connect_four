@@ -5,47 +5,53 @@ RSpec.describe GameBoard do
         @board = GameBoard.new
     end
 
-    def fill_column_zero
+    def fill_column(specified_column)
         6.times do
-            @board.assign_column(0,"X")
+            @board.drop_piece(specified_column,"X")
         end
     end
 
-    context "row" do
+    context "#get_row" do
         it "returns the row specified in the argument" do
-            expect(@board.row(0)).to eql([" "," "," "," "," "," "," "])
+            expect(@board.get_row(0).map(&:game_piece)).to eql([" "," "," "," "," "," "," "])
+        end
+
+        it "returns the specified row with pieces dropped in" do
+            @board.drop_piece(0,"X")
+            expect(@board.get_row(0).map(&:game_piece)).to eql(["X"," "," "," "," "," "," "])
         end
     end
 
-    context "column" do
+    context "#get_column" do
         it "returns the colum specified in the argument" do
-            expect(@board.column(5)).to eql([" "," "," "," "," "," "])
+            expect(@board.get_column(5).map(&:game_piece)).to eql([" "," "," "," "," "," "])
+        end
+
+        it "returns the specified column with pieces dropped in" do
+            @board.drop_piece(3,"X")
+            @board.drop_piece(3,"O")
+
+            expect(@board.get_column(3).map(&:game_piece)).to eql(["X","O"," "," "," "," "])
         end
     end
 
-    context "column_full?" do 
-        it "returns false when a column isnt full" do
-            expect(@board.column_full?(0)).to eql(false)
-        end
-
-        it "returns true for a full column" do
-            fill_column_zero
-
-            expect(@board.column_full?(0)).to eql(true)
-        end
-    end
-
-    context "assign_column" do 
+    context "#drop_piece" do 
         it "assigns a value to the bottom most square in the column" do
-            @board.assign_column(6,"X")
-            @board.assign_column(6,"Y")
-            expect(@board.row(1)[6]).to eql("Y")
+            @board.drop_piece(6,"X")
+            @board.drop_piece(6,"Y")
+            expect(@board.get_row(1)[6].game_piece).to eql("Y")
         end
 
-        it "returns nil if column is full" do 
-            fill_column_zero
+        it "returns false if column is full" do 
+            fill_column(0)
 
-            expect(@board.assign_column(0,"x")).to eql(nil)
+            expect(@board.drop_piece(0,"x")).to eql(false)
+        end
+    end
+
+    context "#display" do
+        it "returns the game board as a string" do
+            expect(@board.display).to eql("|   |   |   |   |   |   |   |\n|   |   |   |   |   |   |   |\n|   |   |   |   |   |   |   |\n|   |   |   |   |   |   |   |\n|   |   |   |   |   |   |   |\n|   |   |   |   |   |   |   |\n|---|---|---|---|---|---|---|")
         end
     end
 
