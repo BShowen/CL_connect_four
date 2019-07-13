@@ -3,10 +3,11 @@ require_relative "./game_ref"
 
 class GameBoard
     include GameRef
-    
+
     attr_accessor :cloned_board
 
-    def initialize
+    def initialize(player1, player2)
+        @players = [player1, player2]
         @game_board = Array.new(6) { Array.new(7) }
         initialize_each_sqaure
         @cloned_board = nil
@@ -36,8 +37,8 @@ class GameBoard
         return false if column_full?(column_number)
         
         for row in 0..6 do
-            if get_row(row)[column_number].game_piece == " "
-                get_row(row)[column_number].game_piece = new_character
+            if get_row(row)[column_number].character == " "
+                get_row(row)[column_number].character = new_character
                 return true
                 break   
             end
@@ -47,6 +48,10 @@ class GameBoard
 
     private 
 
+    def get_square(row,column)
+        get_row(row)[column]
+    end
+
     def initialize_each_sqaure
         @game_board.map! do |row|
             row.map! { Square.new }
@@ -55,7 +60,7 @@ class GameBoard
 
     def convert_cloned_board_into_string_board
         @cloned_board.each do |row|
-            row.map!(&:game_piece)
+            row.map!(&:character)
         end
     end
 
@@ -74,7 +79,7 @@ class GameBoard
 
     def column_full?(column)
         self.get_column(column).all? do |square|
-            square.game_piece != " "
+            square.character != " "
         end
     end
 end
