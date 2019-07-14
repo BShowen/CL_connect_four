@@ -11,24 +11,20 @@ module GameRef
 
     private 
     def check_rows_for_winner
-        counter = 0
-        starting_square = get_square(0,0)
+        counter = 1
         for row in 0..5
-            for column in 0..6
+            reference_square = get_square(row,0)
+            for column in 1..6
 
-
-                next if starting_square.is_unassigned? #you are here. 12:10PM. This line of code prevents the remainig line of code to be executed once starting_square is assigned to an empty square. starting_square needs to be assigned some wat after its been processed as an empty square.
-
-                current_square = get_square(row, column) 
-                if current_square.character == starting_square.character
-                    counter += 1
-                    return true if counter == 4
-                else
-                    starting_square = get_square(row, column)
-                    counter = 0
+                current_square = get_square(row,column)
+                if current_square.character == reference_square.character
+                    counter +=1
+                    return reference_square.character if (counter == 4 && (reference_square.is_unassigned? == false))
+                elsif current_square.character != reference_square.character
+                    reference_square = current_square
+                    counter = 1
                 end
-
-
+                
             end
         end
         false
