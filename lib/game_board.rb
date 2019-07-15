@@ -9,7 +9,7 @@ class GameBoard
     def initialize(player1, player2)
         @players = [player1, player2]
         @game_board = Array.new(6) { Array.new(7) }
-        initialize_each_sqaure
+        initialize_each_square
         @cloned_board = nil
     end
 
@@ -21,14 +21,15 @@ class GameBoard
     end
 
     def get_row(row)
+        return nil if (row > 5 || row < 0)
         row = (5 - row) # read grid from the bottom to the top.
         @game_board[row]
     end
 
     def get_column(column)
         col = []
-        for index in 0..5 do 
-           col << self.get_row(index)[column]
+        for row in 0..5 do 
+           col << self.get_row(row)[column]
         end
         col
     end
@@ -36,7 +37,7 @@ class GameBoard
     def drop_piece(column_number, new_character)
         return false if column_full?(column_number)
         
-        for row in 0..6 do
+        for row in 0..5 do
             if get_row(row)[column_number].character == " "
                 get_row(row)[column_number].character = new_character
                 return true
@@ -45,14 +46,12 @@ class GameBoard
         end
     end
 
-
-    private 
-
+    private
     def get_square(row,column)
         get_row(row)[column]
     end
 
-    def initialize_each_sqaure
+    def initialize_each_square
         @game_board.map! do |row|
             row.map! { Square.new }
         end
@@ -68,7 +67,6 @@ class GameBoard
         @cloned_board.map! do |row|
             "| " + row.join(" | ") + " |\n"
         end
-
         bottom_row = ["|---|---|---|---|---|---|---|"]
         @cloned_board << bottom_row
     end
