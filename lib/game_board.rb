@@ -7,7 +7,9 @@ class GameBoard
     attr_accessor :cloned_board, :winner
 
     def initialize(player1, player2)
-        @players = [player1, player2]
+        # @players = [player1, player2]
+        @player1 = player1
+        @player2 = player2
         @game_board = Array.new(6) { Array.new(7) }
         initialize_each_square
         @cloned_board = nil
