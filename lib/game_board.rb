@@ -34,17 +34,43 @@ class GameBoard
         col
     end
 
-    def drop_piece(column_number, new_character)
-        return false if column_full?(column_number)
+    def drop_piece(column, player_character)
+        return false if column_full?(column)
         
         for row in 0..5 do
-            if get_row(row)[column_number].character == " "
-                get_row(row)[column_number].character = new_character
+            if get_square(row, column).is_empty?
+                get_square(row, column).character = player_character
                 return true
                 break   
             end
         end
     end
+
+    def get_ascending_diagonal_row(coordinates)
+        row = coordinates[0]
+        column = coordinates[1]
+        starting_square = get_square(row,column).character
+        diagonal_row = Array.new(1,starting_square)
+        loop do
+            row += 1
+            column += 1
+            return diagonal_row if row > 5 or column > 6
+            diagonal_row << get_square(row, column).character
+        end
+    end
+
+    def get_descending_diagonal_row(coordinates)
+        row = coordinates[0]
+        column = coordinates[1]
+        starting_square = get_square(row,column).character
+        diagonal_row = Array.new(1,starting_square)
+        loop do
+            row -= 1
+            column += 1
+            return diagonal_row if row < 0 or column > 6
+            diagonal_row << get_square(row, column).character
+        end
+    end 
 
     private
     def get_square(row,column)
