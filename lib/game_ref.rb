@@ -1,6 +1,5 @@
 module GameRef
     def winner?
-        @winner = nil
         @winner = check_rows 
         @winner = check_columns if winner == false
         @winner = check_diagonally_ascending if winner == false
