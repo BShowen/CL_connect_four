@@ -24,14 +24,30 @@ RSpec.describe "GameBoard module" do
     context "#winner?" do
         it "returns the character of the winner in a random row" do 
             create_winner_in_this_row(rand(0..5))
-            puts @game_board.display
             expect(@game_board.winner?).to eql("X")
         end
 
         it "returns the character of the winner in a random column" do 
             create_winner_in_this_column(rand(0..6))
-            puts @game_board.display
             expect(@game_board.winner?).to eql("X")
+        end
+
+        it "returns the character of the winner in an ascending diagonal row" do 
+            @game_board.get_row(0)[0].character = "X"
+            @game_board.get_row(1)[1].character = "X"
+            @game_board.get_row(2)[2].character = "X"
+            @game_board.get_row(3)[3].character = "X"
+
+            expect(@game_board.winner?).to eql("X")
+        end
+
+        it "returns the character of the winner in a descending diagonal row" do 
+            @game_board.get_row(5)[0].character = "O"
+            @game_board.get_row(4)[1].character = "O"
+            @game_board.get_row(3)[2].character = "O"
+            @game_board.get_row(2)[3].character = "O"
+
+            expect(@game_board.winner?).to eql("O")
         end
 
         it "returns false when there is no winner: the board is blank" do
