@@ -30,7 +30,7 @@ class GameBoard
     def get_column(column)
         col = []
         for row in 0..5 do 
-           col << self.get_row(row)[column]
+           col << @game_board[5 - row][column]
         end
         col
     end
