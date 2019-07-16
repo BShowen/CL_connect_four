@@ -3,7 +3,8 @@ module GameRef
         winner = nil
         winner = check_rows 
         winner = check_columns if winner == false
-        winner = check_diagonally if winner == false
+        winner = check_diagonally_ascending if winner == false
+        winner = check_diagonally_descending if winner == false
         winner
     end
 
@@ -36,7 +37,11 @@ module GameRef
         false
     end
 
-    def check_diagonally
+    def check_diagonally_ascending
+        false
+    end
+
+    def check_diagonally_descending
         false
     end
 end
