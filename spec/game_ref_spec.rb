@@ -33,11 +33,10 @@ RSpec.describe "GameBoard module" do
         end
 
         it "returns the character of the winner in an ascending diagonal row" do 
-            @game_board.get_row(0)[0].character = "X"
-            @game_board.get_row(1)[1].character = "X"
-            @game_board.get_row(2)[2].character = "X"
-            @game_board.get_row(3)[3].character = "X"
-
+            @game_board.get_row(0)[2].character = "X"
+            @game_board.get_row(1)[3].character = "X"
+            @game_board.get_row(2)[4].character = "X"
+            @game_board.get_row(3)[5].character = "X"
             expect(@game_board.winner?).to eql("X")
         end
 
@@ -57,8 +56,16 @@ RSpec.describe "GameBoard module" do
 
 
     context "#winners_name" do
-        xit "returns the name of the winner" do 
+        it "returns the name of the winner" do 
+            4.times {@game_board.drop_piece(0,"O")}
+            @game_board.winner?
             expect(@game_board.winners_name).to eql("John")
+        end
+
+        it "returns the name of the winner" do 
+            4.times {@game_board.drop_piece(0,"X")}
+            @game_board.winner?
+            expect(@game_board.winners_name).to eql("Adam")
         end
     end
 
