@@ -15,9 +15,8 @@ module GameRef
     def check_rows
         for row in 0..5
             row = get_row(row).map(&:character).join
-    
-            return @player1.character if row.include?(@player1.character * 4)
-            return @player2.character if row.include?(@player2.character * 4)
+            result = check_row_or_column(row)
+            return result if result != nil
         end
         false
     end
@@ -25,9 +24,8 @@ module GameRef
     def check_columns
         for column in 0..6
             column = get_column(column).map(&:character).join
-    
-            return @player1.character if column.include?(@player1.character * 4)
-            return @player2.character if column.include?(@player2.character * 4)
+            result = check_row_or_column(column)
+            return result if result != nil
         end
         false
     end
@@ -36,9 +34,8 @@ module GameRef
         for row in 0..2 do
             for column in 0..3 do 
                 row_data = get_ascending_diagonal_row([row,column]).map(&:character).join
-
-                return @player1.character if row_data.include?(@player1.character * 4)
-                return @player2.character if row_data.include?(@player2.character * 4)
+                result = check_row_or_column(row_data)
+                return result if result != nil
             end
         end 
         false
@@ -48,11 +45,16 @@ module GameRef
         for row in 3..5 do
             for column in 0..3 do 
                 row_data = get_descending_diagonal_row([row,column]).map(&:character).join
-
-                return @player1.character if row_data.include?(@player1.character * 4)
-                return @player2.character if row_data.include?(@player2.character * 4)
+                result = check_row_or_column(row_data)
+                return result if result != nil
             end
         end 
         false
     end
+
+    def check_row_or_column(row_or_col)
+        return @player1.character if row_or_col.include?(@player1.character * 4)
+        return @player2.character if row_or_col.include?(@player2.character * 4)
+    end
 end
+
