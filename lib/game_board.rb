@@ -4,16 +4,15 @@ require_relative "./game_ref"
 class GameBoard
     include GameRef
 
-    attr_accessor :cloned_board, :winner
+    attr_accessor :cloned_board, :winners_name
 
     def initialize(player1, player2)
-        # @players = [player1, player2]
         @player1 = player1
         @player2 = player2
         @game_board = Array.new(6) { Array.new(7) }
         initialize_each_square
         @cloned_board = nil
-        @winner = nil
+        @winners_name = nil
     end
 
     def display
@@ -49,7 +48,7 @@ class GameBoard
         end
     end
 
-    def get_ascending_diagonal_row(coordinates)
+    def get_ascending_row(coordinates)
         row = coordinates[0]
         column = coordinates[1]
         starting_square = get_square(row,column) #.character
@@ -62,7 +61,7 @@ class GameBoard
         end
     end
 
-    def get_descending_diagonal_row(coordinates)
+    def get_descending_row(coordinates)
         row = coordinates[0]
         column = coordinates[1]
         starting_square = get_square(row,column) #.character
