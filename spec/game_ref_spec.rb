@@ -22,35 +22,35 @@ RSpec.describe "GameBoard module" do
     end
 
     context "#winner?" do
-        it "returns the character of the winner in a random row" do 
+        it "returns true for a winner in a random row" do 
             create_winner_in_this_row(rand(0..5))
-            expect(@game_board.winner?).to eql("X")
+            expect(@game_board.winner?).to eql(true)
         end
 
-        it "returns the character of the winner in a random column" do 
+        it "return true for a winner in a random column" do 
             create_winner_in_this_column(rand(0..6))
-            expect(@game_board.winner?).to eql("X")
+            expect(@game_board.winner?).to eql(true)
         end
 
-        it "returns the character of the winner in an ascending diagonal row" do 
+        it "returns true for the winner in an ascending diagonal row" do 
             @game_board.get_row(0)[2].character = "X"
             @game_board.get_row(1)[3].character = "X"
             @game_board.get_row(2)[4].character = "X"
             @game_board.get_row(3)[5].character = "X"
-            expect(@game_board.winner?).to eql("X")
+            expect(@game_board.winner?).to eql(true)
         end
 
-        it "returns the character of the winner in a descending diagonal row" do 
+        it "returns true for the winner in a descending diagonal row" do 
             @game_board.get_row(5)[0].character = "O"
             @game_board.get_row(4)[1].character = "O"
             @game_board.get_row(3)[2].character = "O"
             @game_board.get_row(2)[3].character = "O"
 
-            expect(@game_board.winner?).to eql("O")
+            expect(@game_board.winner?).to eql(true)
         end
 
-        it "returns false when there is no winner: the board is blank" do
-            expect(@game_board.winner?).to eql(false)
+        it "returns nil when there is no winner: the board is blank" do
+            expect(@game_board.winner?).to eql(nil)
         end
     end
 
@@ -62,7 +62,7 @@ RSpec.describe "GameBoard module" do
             expect(@game_board.winners_name).to eql("John")
         end
 
-        it "returns the name of the winner" do 
+        it "returns the name of a different winner" do 
             4.times {@game_board.drop_piece(0,"X")}
             @game_board.winner?
             expect(@game_board.winners_name).to eql("Adam")
