@@ -8,7 +8,6 @@ module GameRef
     end
 
     def winners_name
-        # @players[0].character == @winner ? @players[0].name : @players[1].name
         @player1.character == @winner ? @player1.name : @player2.name
     end
 
