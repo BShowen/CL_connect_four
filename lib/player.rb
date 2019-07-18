@@ -6,7 +6,15 @@ class Player
         @character = character
     end
 
-    def make_a_move
-        move = gets.chomp.to_i
+    def Player.move
+        begin
+            reply = Integer(gets.chomp) rescue raise
+            raise if reply < 0 || reply > 6
+        rescue
+            puts "Invalid entry. Try again."
+            retry
+        else
+            reply
+        end
     end
 end
