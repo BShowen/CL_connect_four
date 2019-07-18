@@ -95,7 +95,7 @@ class GameBoard
         @cloned_board.map! do |row|
             "| " + row.join(" | ") + " |\n"
         end
-        bottom_row = ["|---|---|---|---|---|---|---|"]
+        bottom_row = ["|---|---|---|---|---|---|---|\n| 0 | 1 | 2 | 3 | 4 | 5 | 6 |"]
         @cloned_board << bottom_row
     end
 
