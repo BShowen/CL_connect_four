@@ -7,6 +7,6 @@ class Player
     end
 
     def make_a_move
-        move = gets.chomp
+        move = gets.chomp.to_i
     end
 end
