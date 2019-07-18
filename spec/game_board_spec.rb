@@ -156,7 +156,7 @@ RSpec.describe GameBoard do
 
     context "#display" do
         it "returns the game board as a string" do
-            expect(@board.display).to eql("|   |   |   |   |   |   |   |\n|   |   |   |   |   |   |   |\n|   |   |   |   |   |   |   |\n|   |   |   |   |   |   |   |\n|   |   |   |   |   |   |   |\n|   |   |   |   |   |   |   |\n|---|---|---|---|---|---|---|")
+            expect(@board.display).to eql("|   |   |   |   |   |   |   |\n|   |   |   |   |   |   |   |\n|   |   |   |   |   |   |   |\n|   |   |   |   |   |   |   |\n|   |   |   |   |   |   |   |\n|   |   |   |   |   |   |   |\n|---|---|---|---|---|---|---|\n| 0 | 1 | 2 | 3 | 4 | 5 | 6 |")
         end
     end
 
