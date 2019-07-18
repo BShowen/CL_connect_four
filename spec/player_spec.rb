@@ -17,8 +17,8 @@ RSpec.describe Player do
 
     context "#make_a_move" do 
         it "returns players move" do 
-            allow(player).to receive(:gets) {"X"}
-            expect(player.make_a_move).to eql("X")
+            allow(player).to receive(:gets) {"0"}
+            expect(player.make_a_move).to eql(0)
         end
     end
 end
