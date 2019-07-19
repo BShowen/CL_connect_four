@@ -5,9 +5,16 @@ module GameRef
         end
     end
 
+    def tie?
+        for row in 0..5 do 
+            return false if get_row(row).any?(&:is_empty?)
+        end
+        true
+    end
+
     private 
     def check_rows
-        for row in 0..5
+        for row in 0..5 do
             row_data = get_row(row).map(&:character).join
             if check_row_or_column(row_data) 
                 return true 
@@ -19,7 +26,7 @@ module GameRef
     end
 
     def check_columns
-        for column in 0..6
+        for column in 0..6 do
             column_data = get_column(column).map(&:character).join
             if check_row_or_column(column_data) 
                 return true 
@@ -69,5 +76,3 @@ module GameRef
         false
     end
 end
-
-#you are here. Notes for when you get back. I want to change #winner? to a function that sets the @winner variable to the name of the winner if there is one and the returns true. If there is no winner then dont touch @winner, just leave it nil (its default value) and return false. This way I can simply call #winner? and if it returns true I can simply display @winner. Also I may want to change @winner to @winners_name 
