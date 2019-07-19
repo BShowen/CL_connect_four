@@ -9,14 +9,14 @@ class GameBoard
     def initialize(player1, player2)
         @player1 = player1
         @player2 = player2
-        @game_board = Array.new(6) { Array.new(7) }
-        initialize_each_square
+        @game_board = Array.new(6) { Array.new(7) } #array of 6 arrays. each array containing 7 elements. 
+        initialize_each_board_square
         @cloned_board = nil
         @winners_name = nil
     end
 
     def display
-        deep_clone_object_board
+        deep_clone_game_board
         convert_cloned_board_into_string_board
         add_borders_to_board_columns
         @cloned_board.join
@@ -51,26 +51,26 @@ class GameBoard
     def get_ascending_row(coordinates)
         row = coordinates[0]
         column = coordinates[1]
-        starting_square = get_square(row,column) #.character
+        starting_square = get_square(row,column) 
         diagonal_row = Array.new(1,starting_square)
         loop do
             row += 1
             column += 1
             return diagonal_row if row > 5 or column > 6
-            diagonal_row << get_square(row, column) #.character
+            diagonal_row << get_square(row, column) 
         end
     end
 
     def get_descending_row(coordinates)
         row = coordinates[0]
         column = coordinates[1]
-        starting_square = get_square(row,column) #.character
+        starting_square = get_square(row,column) 
         diagonal_row = Array.new(1,starting_square)
         loop do
             row -= 1
             column += 1
             return diagonal_row if row < 0 or column > 6
-            diagonal_row << get_square(row, column) #.character
+            diagonal_row << get_square(row, column) 
         end
     end 
 
@@ -79,7 +79,7 @@ class GameBoard
         get_row(row)[column]
     end
 
-    def initialize_each_square
+    def initialize_each_board_square
         @game_board.map! do |row|
             row.map! { Square.new }
         end
@@ -93,13 +93,13 @@ class GameBoard
 
     def add_borders_to_board_columns
         @cloned_board.map! do |row|
-            "| " + row.join(" | ") + " |\n"
+            "| #{row.join(" | ")} |\n"
         end
         bottom_row = ["|---|---|---|---|---|---|---|\n| 0 | 1 | 2 | 3 | 4 | 5 | 6 |"]
         @cloned_board << bottom_row
     end
 
-    def deep_clone_object_board
+    def deep_clone_game_board
         @cloned_board = Marshal.load(Marshal.dump(@game_board))
     end
 
