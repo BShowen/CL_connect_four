@@ -21,6 +21,12 @@ RSpec.describe "GameBoard module" do
         end
     end
 
+    def fill_entire_board
+        for row in 0..5 do 
+            @game_board.get_row(row).each{|sqaure| sqaure.character = "X"}
+        end
+    end
+
     context "#winner?" do
         it "returns true for a winner in a random row" do 
             create_winner_in_this_row(rand(0..5))
@@ -51,6 +57,18 @@ RSpec.describe "GameBoard module" do
 
         it "returns nil when there is no winner: the board is blank" do
             expect(@game_board.winner?).to eql(nil)
+        end
+    end
+
+    context "#tie?" do
+        it "returns false when there is not a tie" do 
+            expect(@game_board.tie?).to eql(false)
+        end
+
+        it "returns true when there is a tie" do 
+            fill_entire_board
+
+            expect(@game_board.tie?).to eql(true)
         end
     end
 
